@@ -6,20 +6,19 @@
     1. `UFUNCTION(BlueprintImplementableEvent)`로 C++ 헤더파일 선언 -> Blueprint에서 구현 -> C++ Tick에서 호출
     2. 또는 C++로만 구현
 
-![image](https://gist.github.com/assets/57009810/5360524b-cea7-4abf-b22e-a3b84e51dc65)
+![314367196-5360524b-cea7-4abf-b22e-a3b84e51dc65](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/342498f8-0f16-4db9-a01d-f9a0d54e9fa4)
 (Fortnite 프로파일링)
 
 - [ ] `Tick`이 필요없는 Actor/ActorComponent들은 `SetActorTickEnabled(false)`/`SetComponentTickEnabled(false)`로 비활성화하자; 필요할때 다시 활성화
     - `Tick`을 너무 많이 쓰면 게임 스레드(Game Thread)에서 오버로드 현상이 발생할 수 있음 -> 프레임 드랍(Frame Drop) 발생
 
-![image](https://gist.github.com/assets/57009810/9c553c02-d5cf-4365-be2a-9b7c81203dfa)
-
+![314368333-9c553c02-d5cf-4365-be2a-9b7c81203dfa](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/dcd23f4f-bb85-4092-8647-daf0793a7719)
 
 - [ ] UI 구현은 `Tick` Event Dispatcher 또는 Delegate로 처리하자
 - [ ] `SetActorTickInterval()`로 Tick 주기를 줄일 수 있다
     - (인자값1이 높을수록 Tick이 느려짐)
 
-![image](https://gist.github.com/assets/57009810/6c361cf1-66be-4454-8eff-0716f05fe9a4)
+![314368906-6c361cf1-66be-4454-8eff-0716f05fe9a4](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/e4418b6e-d165-4f22-b4b3-5dc487772e0a)
 
 
 ### 이동하는 Scene Component
@@ -29,15 +28,16 @@
 - [ ] `Moveable` Scene Component은 가능하면 Overlap Event를 비활성화
     - Overlap Event가 활성화된 모든 Component들은 움직일때마다 Physics Check를 함 -> 프레임드랍 -> 따라서 Overlap Event는 Trigger vs 플레이어 할때 쓰고 나머지는 `Trace`로 대체하자 -> Projectile (총알), 무기에는 *절대로* Overlap Event하면 안됨
 
-![image](https://gist.github.com/assets/57009810/4f12dba2-0a30-47c3-bfd5-d4391dae8b00)
+![314370374-4f12dba2-0a30-47c3-bfd5-d4391dae8b00](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/ef0283ad-fded-42ed-a995-2fd8096cf8d0)
 
-![image](https://gist.github.com/assets/57009810/480b3f05-1c3a-420c-bc73-bfd4fd7c3f05)
+![314383834-480b3f05-1c3a-420c-bc73-bfd4fd7c3f05](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/e8f54496-2a62-40f9-a555-f4714ee921f9)
+
 
 - [ ] 언리얼은 모든 움직이는 컴포넌트의 Transform을 연산하기 때문에 소멸식 컴포넌트는 Auto Manage를 켜주자 -> `bAutoManageAttachment = true` (UAudioComponent) 또는 `SetUseAutoManageAttachment(true)` (UNiagaraComponent)
     - 사용안할때는 자동으로 Detach하고 사용할때 알아서 Attach함 -> 따라서 사용안할 때는 해당 컴포넌트의 Transform 연산을 스킵함
     - 사소한거지만 어떻게든 Game Thread를 쥐어짜내자ㅎㅎ
-
-![image](https://gist.github.com/assets/57009810/15ba9164-498c-494f-96bf-e2dd728878bf)
+      
+![314389474-15ba9164-498c-494f-96bf-e2dd728878bf (1)](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/0c9334ab-055a-495d-8e34-030606e46a49)
 
 ### Cast 주의
 - [ ] Cast은 필요할때만 사용하자 -> Casting 할 때마다 Class 전체를 본 Class에 실린다고 생각하면 됨 -> 프레임 드랍
@@ -45,7 +45,7 @@
 
 #### Tick에서 프레임마다 Cast하면 이런 느낌
 
-![image](https://gist.github.com/assets/57009810/3c49ac44-0f85-4ec9-a60a-e7fea1e3688d)
+![314397824-3c49ac44-0f85-4ec9-a60a-e7fea1e3688d](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/fdf28341-13f2-4a57-9d4a-7e0bd25828f0)
 
 #### 가능하면 이걸로 하자
   1. Delegate 또는 Event Dispatcher 
@@ -56,18 +56,22 @@
 - [ ] `SpawnActor()`함수는 런타임중에는 최대한 피하자
     -  필요한 Actor들은 `BeginPlay()`에서 Spawn하고 눈에 안보이게 숨기고 (`SetVisibility(false)`) Level밖에서 대기 -> 필요할 때 원하는 장소로 이동
 
-![HowDoesLadyDimitrescuWorkOffCameraResidentEvil8Village-YouTubeand2morepages-Profile1-MicrosoftEdge2024-03-2015-13-29-Trim-ezgif com-video-to-gif-converter](https://gist.github.com/assets/57009810/9a0a542d-b87e-48a5-b4b5-b5e458b8237c)
+![314396025-9a0a542d-b87e-48a5-b4b5-b5e458b8237c](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/3521baa8-3eb7-4a29-9768-7e29e63142b9)
+
 (https://www.youtube.com/watch?v=2exHZm_6Ig8)
 
 - [ ] Object Pooling을 자주 사용하자
 
 #### Object Pooling 안쓸때 vs 쓸때
 
-![NonVsPooling](https://gist.github.com/assets/57009810/95ff6767-2742-4ad5-b11c-3785fc2c48bf)
+![314399076-95ff6767-2742-4ad5-b11c-3785fc2c48bf](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/e7f92ab1-35de-4135-907c-875de6baf19d)
+
 (https://www.kodeco.com/847-object-pooling-in-unity)
 
 #### Object Pooling 예시
-![ScreenRec6Gif](https://gist.github.com/assets/57009810/331504a5-006e-458d-8640-8d83a39bf476)
+
+![314398925-331504a5-006e-458d-8640-8d83a39bf476](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/61649869-a609-488b-9870-bdc3e7b0fd79)
+
 (https://www.kodeco.com/847-object-pooling-in-unity)
 
 ## Physics
@@ -88,14 +92,14 @@
 - [ ] Transform을 한번에 연산하기
     - [ ] `SetActorLocation()`, `SetActorRotation()`, `SetActorScale3D()`또는 `SetRelativeLocation()`, ... 을 다 따로 적용하지말고 -> 다 계산하고 한번에 `SetActorTransform` 또는 `SetActorLocationAndRotation()`을 사용하자
 
-![image](https://gist.github.com/assets/57009810/b3bc3f57-d68b-4279-b1c5-82d337f59ce2)
+![314431299-b3bc3f57-d68b-4279-b1c5-82d337f59ce2](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/8872a34d-8fda-403f-8373-b5dd345bddb5)
 
 ### CPU Offloading
 - [ ] 상호작용이 필요없는 Actor가 이동하거나 회전을 해야한다면 (예. 천장 선풍기) 코드로 구현하지 말고 쉐이더 코드(Shader Code)로 구현하자
     - 연산 작업을 CPU에서 GPU 덜어줄 수 있다
-- [ ] Vertex Animation
+- [ ] Vertex Animation - Static Mesh에 Animation을 입힌다고 생각하면 됨
 
-![DaysGone_HowSonyBendBuilttheHorde-YouTubeand2morepages-Profile1-MicrosoftEdge2024-03-2017-40-05-Trim-ezgif com-video-to-gif-converter](https://gist.github.com/assets/57009810/f1bee350-6ec3-4dcb-b079-aa25dfe1a62c)
+![314429976-f1bee350-6ec3-4dcb-b079-aa25dfe1a62c](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/1b18479b-8266-4421-bb97-c521102f94d1)
 
 (https://www.youtube.com/watch?v=NIsRvgwNX4Y)
 
@@ -103,27 +107,31 @@
     - 렌더링할때는 bound로 활성화/비활성화하기 때문에 각각 컴포넌트의 bound가 있기보다 부모의 bound를 사용하는 것이 더 효율적이다. `bUseAttachParentBound = true` -> Culling할 때 더 간단해짐
     - 만약에 bound가 카메라 frustum안에 있으면 렌더링을 해줌
 
-![1](https://gist.github.com/assets/57009810/8ac969df-78f8-461a-897c-5302709a5518)
 
-![image](https://gist.github.com/assets/57009810/0fda0c86-f5ca-4dfa-868d-021a08928158)
 
-![2](https://gist.github.com/assets/57009810/6f77a870-e47a-42a5-9132-7954090023cb)
+#### `Use Attach Parent Bound` 비활성화 vs 활성화
 
-![image](https://gist.github.com/assets/57009810/1d0b0d32-4428-4419-bc09-5a5611a9be4b)
+![314388880-8ac969df-78f8-461a-897c-5302709a5518](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/b953376b-5311-4e92-b4a9-254748525ae3)
+
+![314388990-6f77a870-e47a-42a5-9132-7954090023cb](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/a5f76ada-716b-4353-b8fc-dc6fbbab4571)
+![314388957-0fda0c86-f5ca-4dfa-868d-021a08928158](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/489ae7dc-3bfd-477f-b907-3a0011438560)
+
+![314393793-1d0b0d32-4428-4419-bc09-5a5611a9be4b](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/66326132-3bc2-49f2-81d4-14c06de7960d)
 
 # 렌더링
 ### Draw Call 최소화
 - [ ] 레벨에 많이 쓰여지는 *Static Mesh*가 있다면 최대한 많이 인스턴싱(Instancing)하자 -> 한 Actor에 여러게의 *Instance*를 생성가능
 
 #### Actor 6개
-![image](https://gist.github.com/assets/57009810/c3fd8173-636e-43c3-ae7d-d96e0db4ae1e)
+
+![314448824-5e1c7e6e-615f-489c-a8da-9a80df825855](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/f08c02cd-0fff-473a-aa54-38694a9f4946)
 
 #### 1 Actor, Instance 6개
-![image](https://gist.github.com/assets/57009810/5e1c7e6e-615f-489c-a8da-9a80df825855)
 
+![314448980-c3fd8173-636e-43c3-ae7d-d96e0db4ae1e](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/382fe9e2-dcde-4372-8623-fe868bb29414)
 
-    - *Instanced Static Mesh Component*가 가장 쉬운 방법임 
-        - LOD까지 적용하고 싶으면 *Hierarchical Instanced Static Mesh Component* 사용가능
+- `Instanced Static Mesh Component`가 가장 쉬운 방법임 
+    - LOD까지 적용하고 싶으면 `Hierarchical Instanced Static Mesh Component` 사용가능
 - [ ] LOD (Level of Detail) 적용하기
 ![LODZoom](https://gist.github.com/assets/57009810/5e6ebc08-ac86-41ee-b935-60ca7275df2d)
 
@@ -136,15 +144,14 @@
 - [ ] Material Batching하기
 ### 조명
 - [ ] Max Draw Distance (먼거리에서는 Light를 자동으로 꺼주는 기능)
-![t-ezgif com-video-to-gif-converter](https://gist.github.com/assets/57009810/b6769b7f-0cff-4b79-b1c6-c752ed8f5cbc)
-![image](https://gist.github.com/assets/57009810/a76e2650-5bfc-4ebb-a72f-e8d7f2eec5df)
+![314451213-b6769b7f-0cff-4b79-b1c6-c752ed8f5cbc](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/a0eef1a5-dedd-42ba-b37b-6153affa22ca)
+![314452429-a76e2650-5bfc-4ebb-a72f-e8d7f2eec5df](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/1eea64a3-d9bf-4257-9ecf-e56a5aae3c51)
+
+
 
 - [ ] Max Distance Fade Range - 갑자기 빛이 활성화/비활성화하면 부자연스러우면 Fade도 해주면 된다
-![t-ezgif com-video-to-gif-converter (1)](https://gist.github.com/assets/57009810/7de870ed-1f21-45f1-9ff3-b84e7caddba3)
-
-
-
-![image](https://gist.github.com/assets/57009810/bf4f35eb-acc5-4958-8505-8a2faaa73008)
+![314453215-7de870ed-1f21-45f1-9ff3-b84e7caddba3](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/e3d4678d-57dc-4c54-977c-3b13e1a06c77)
+![314452470-bf4f35eb-acc5-4958-8505-8a2faaa73008](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/c62d4edc-a6a7-4447-922e-605392f2e850)
 
   
   
