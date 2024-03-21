@@ -23,10 +23,9 @@
 
 ### 이동하는 Scene Component
 
-- **Profiling**할 때 `stat component` 
-
 - [ ] `Moveable` Scene Component은 가능하면 Overlap Event를 비활성화
-    - Overlap Event가 활성화된 모든 Component들은 움직일때마다 Physics Check를 함 -> 프레임드랍 -> 따라서 Overlap Event는 Trigger vs 플레이어 할때 쓰고 나머지는 `Trace`로 대체하자 -> Projectile (총알), 무기에는 *절대로* Overlap Event하면 안됨
+    - Overlap Event가 활성화된 모든 Component들은 움직일때마다 Physics Check를 함 -> 프레임드랍 -> 따라서 Overlap Event는 Trigger vs 플레이어 할때 쓰고 나머지는 `Trace`로 대체하자
+    - Projectile (총알), 무기에는 *절대로* Overlap Event하면 안됨
 
 ![314370374-4f12dba2-0a30-47c3-bfd5-d4391dae8b00](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/ef0283ad-fded-42ed-a995-2fd8096cf8d0)
 
@@ -107,8 +106,6 @@
     - 렌더링할때는 bound로 활성화/비활성화하기 때문에 각각 컴포넌트의 bound가 있기보다 부모의 bound를 사용하는 것이 더 효율적이다. `bUseAttachParentBound = true` -> Culling할 때 더 간단해짐
     - 만약에 bound가 카메라 frustum안에 있으면 렌더링을 해줌
 
-
-
 #### `Use Attach Parent Bound` 비활성화 vs 활성화
 
 ![314388880-8ac969df-78f8-461a-897c-5302709a5518](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/b953376b-5311-4e92-b4a9-254748525ae3)
@@ -133,7 +130,7 @@
 - `Instanced Static Mesh Component`가 가장 쉬운 방법임 
     - LOD까지 적용하고 싶으면 `Hierarchical Instanced Static Mesh Component` 사용가능
 - [ ] LOD (Level of Detail) 적용하기
-![LODZoom](https://gist.github.com/assets/57009810/5e6ebc08-ac86-41ee-b935-60ca7275df2d)
+![314433908-5e6ebc08-ac86-41ee-b935-60ca7275df2d](https://github.com/Unreal-Engine-Developers-Korea/Optimization/assets/57009810/a33f495a-7622-4d2b-89ab-7305dcaf9722)
 
 - [ ] Culling 적용하기 (언리얼에서 이미 기본 Culling 작동함)
 - [ ] Static Mesh Merge하기
