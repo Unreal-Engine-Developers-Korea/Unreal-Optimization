@@ -49,7 +49,7 @@ https://github.com/Unreal-Engine-Developers-Korea/Unreal-Optimization/assets/570
 https://github.com/Unreal-Engine-Developers-Korea/Unreal-Optimization/assets/57009810/5f85747d-de7b-41a8-8cab-81c5281418fb
 
 ### 쿠키: C++ Code 
-<script src="https://gist.github.com/yoponchik/7523836a0f2ab649f3814e5c27a28bb1.js"></script>
+https://gist.github.com/yoponchik/7523836a0f2ab649f3814e5c27a28bb1
 
 
 
