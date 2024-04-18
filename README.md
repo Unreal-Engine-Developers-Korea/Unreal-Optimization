@@ -8,6 +8,6 @@
 ## 2. GPU 
 
 ## 3. 메모리 관리
-[Hard & Soft References](Optimization%20Tips/03_메모리/Hard%20and%20Soft%20Pointers.md)
+- [Hard & Soft References](Optimization%20Tips/03_메모리/Hard%20and%20Soft%20Pointers.md)
 
 
