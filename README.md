@@ -30,8 +30,9 @@
 
 <details>
 <summary><h2>4. 언리얼 디버깅<h2></summary>
-  
-- [언리얼 크래시 정복하기](Optimization%20And%20Debugging%20Tips/04_디버깅/01_언리얼%20크래시%20디버깅.md)
+
+- [유용한 디버깅 정보 추출하는 법](Optimization%20And%20Debugging%20Tips/04_디버깅/01_유용한%20디버깅%20정보%20추출하는%20법.md)
+- [언리얼 크래시 정복하기](Optimization%20And%20Debugging%20Tips/04_디버깅/02_크래시%20파일로%20디버깅하는%20법.md)
 
 </details>
 
