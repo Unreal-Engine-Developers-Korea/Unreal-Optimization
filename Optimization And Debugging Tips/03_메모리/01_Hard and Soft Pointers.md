@@ -16,7 +16,7 @@ Hard Reference = 기본 클래스 포인터 (TSubclass, etc.)
 - 우선 꼭 알아야하는 포인트는 _**에셋을 참조하는 모든 UObject는 자동으로 메모리에 실린다**_.
 - 따라서 **변화없이 레벨에 존재하는 에셋들은 Hard Reference로 참조**하고 **동적으로 레벨에 Spawn/Destroy하는 에셋들은 Soft Reference로 참조**해주자.   
 
-### Reference Viewer - BP_Cliff을 의존하는 에셋들을 볼 수 있음
+### Reference Viewer - BP_Cliff과 종속성이 있는 에셋들을 볼 수 있음
 <img width="471" alt="Screenshot 2024-03-24 at 2 03 02 AM" src="https://github.com/Unreal-Engine-Developers-Korea/Unreal-Optimization/assets/57009810/53af834c-6417-4f61-897a-8b06b8f27b8b">
 
 ### 예) BP_Cliff 블루프린트를 참조하는 블루프린트가 2개 있음 : 하나는 Soft Reference and 하나는 Hard Reference
